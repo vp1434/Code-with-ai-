@@ -71,13 +71,15 @@ nav {
   padding:0 5px; pointer-events:none; font-size:0.58rem; }
 .theme-icon .fa-sun { color:#f59e0b; } .theme-icon .fa-moon { color:#818cf8; }
 
-.nav-cta { background:linear-gradient(135deg,#25d366,#128c7e); color:#fff !important; border:none;
+.nav-cta { background:linear-gradient(135deg,#0088CC,#0080D1); color:#fff !important; border:none;
   padding:8px 18px; border-radius:50px; font-size:0.82rem; font-weight:700; cursor:pointer;
   text-decoration:none; transition:opacity .2s,transform .2s; display:flex; align-items:center; gap:7px; white-space:nowrap; }
 .nav-cta:hover { opacity:.85; transform:translateY(-1px); }
 
-.hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:4px; }
-.hamburger span { width:22px; height:2px; background:var(--text); border-radius:2px; transition:.3s; display:block; }
+.hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:6px; position:relative; z-index:201; }
+.hamburger span { width:24px; height:2.5px; background:var(--text); border-radius:2px; transition:.3s; display:block; }
+.hamburger span:nth-child(1) { transform-origin:top left; }
+.hamburger span:nth-child(3) { transform-origin:bottom left; }
 
 /* ── HERO ── */
 .hero { position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; justify-content:center;
@@ -208,12 +210,12 @@ section { position:relative; z-index:1; padding:80px 24px; }
   display:flex; align-items:center; justify-content:center; gap:6px; }
 .btn-free:hover { opacity:.85; transform:translateY(-1px); }
 
-.btn-whatsapp { flex:1; min-width:90px; padding:9px 10px; border-radius:10px; border:none;
-  background:linear-gradient(135deg,#25d366,#128c7e); color:#fff;
+.btn-telegram { flex:1; min-width:90px; padding:9px 10px; border-radius:10px; border:none;
+  background:linear-gradient(135deg,#0088CC,#0080D1); color:#fff;
   font-size:0.81rem; font-weight:700; cursor:pointer; transition:all .2s;
   text-decoration:none; font-family:'Space Grotesk',sans-serif;
   display:flex; align-items:center; justify-content:center; gap:6px; }
-.btn-whatsapp:hover { opacity:.85; transform:translateY(-1px); }
+.btn-telegram:hover { opacity:.85; transform:translateY(-1px); }
 
 /* ── TOOL CARD (Resume Builder) ── */
 .tool-section { background:var(--bg); transition:background .35s; }
@@ -259,7 +261,7 @@ section { position:relative; z-index:1; padding:80px 24px; }
   transition:all .25s; }
 .social-card:hover { border-color:var(--purple); transform:translateY(-3px); box-shadow:0 12px 28px var(--shadow); }
 .social-card i { font-size:1.15rem; }
-.sc-wa i{color:#25D366} .sc-yt i{color:#FF0000} .sc-ig i{color:#E1306C} .sc-tg i{color:#0088CC}
+.sc-wa i{color:#25D366} .sc-yt i{color:#FF0000} .sc-ig i{color:#E1306C} .sc-tg i{color:#0088CC} .sc-fb i{color:#1877F2}
 
 /* ── FOOTER ── */
 footer { position:relative; z-index:1; padding:38px 24px 26px;
@@ -291,16 +293,25 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
   text-decoration:none; font-family:'Space Grotesk',sans-serif;
   display:flex; align-items:center; gap:7px; transition:opacity .2s; }
 .modal-dl:hover { opacity:.85; }
-.modal-wa { background:linear-gradient(135deg,#25d366,#128c7e); color:#fff; border:none;
+.modal-tg { background:linear-gradient(135deg,#0088CC,#0080D1); color:#fff; border:none;
   padding:9px 22px; border-radius:10px; font-size:0.84rem; font-weight:700; cursor:pointer;
   text-decoration:none; font-family:'Space Grotesk',sans-serif;
   display:flex; align-items:center; gap:7px; transition:opacity .2s; }
-.modal-wa:hover { opacity:.85; }
+.modal-tg:hover { opacity:.85; }
 
 /* ── RESPONSIVE ── */
 @media (max-width:860px){
-  .nav-links{ display:none; }
-  .hamburger{ display:flex; }
+  nav { padding:12px 20px; }
+  .hamburger{ 
+    display:flex; 
+    align-items:center;
+  }
+  .hamburger.active span:nth-child(1) { transform:rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity:0; }
+  .hamburger.active span:nth-child(3) { transform:rotate(-45deg); }
+  .nav-links { display:none; position:absolute; top:100%; right:0; min-width:200px; flex-direction:column; background:var(--nav-bg); padding:16px 0; border:1px solid var(--border); border-radius:10px 0 10px 10px; box-shadow:0 8px 24px rgba(0,0,0,0.2); }
+  .nav-links.active { display:flex; }
+  .nav-links li { padding:0 20px; width:100%; }
 }
 @media (max-width:520px){
   .hero-btns{ flex-direction:column; width:100%; }
@@ -326,7 +337,7 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <span class="theme-icon"><i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i></span>
     </button>
-    <a class="nav-cta" id="navWaBtn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Get Premium</a>
+    <a class="nav-cta" id="navTgBtn" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i>Get Premium</a>
     <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -340,7 +351,7 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
     </div>
     <h1 class="hero-title">CODE<span class="with">with</span><span class="ai">AI</span></h1>
     <div class="hero-band">Notes · Resume Builder · Community</div>
-    <p class="hero-desc">Python se leke DBMS tak — sab subjects ke notes ek jagah. Free notes turant download karo, ya premium notes ke liye seedha WhatsApp pe message karo.</p>
+    <p class="hero-desc">Python se leke DBMS tak — sab subjects ke notes ek jagah. Free notes turant download karo, ya premium notes ke liye seedha Telegram pe message karo.</p>
     <div class="hero-btns">
       <a href="#notes" class="btn-primary"><i class="fa-solid fa-book-open"></i>Browse Notes</a>
       <a href="https://resume-builder-client-dun.vercel.app/" target="_blank" rel="noopener" class="btn-outline"><i class="fa-solid fa-file-lines"></i>Build Resume</a>
@@ -357,7 +368,7 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
 <section class="features">
   <div class="features-grid">
     <div class="feature-item"><div class="fi-icon"><i class="fa-solid fa-download"></i></div><h4>Free Notes</h4><p>Har subject ke free PDF notes</p></div>
-    <div class="feature-item"><div class="fi-icon"><i class="fa-brands fa-whatsapp"></i></div><h4>Premium on WhatsApp</h4><p>Detailed notes, seedha chat pe</p></div>
+    <div class="feature-item"><div class="fi-icon"><i class="fa-brands fa-telegram"></i></div><h4>Premium on Telegram</h4><p>Detailed notes, seedha chat pe</p></div>
     <div class="feature-item"><div class="fi-icon"><i class="fa-solid fa-file-lines"></i></div><h4>Resume Builder</h4><p>Free online resume banao</p></div>
     <div class="feature-item"><div class="fi-icon"><i class="fa-solid fa-eye"></i></div><h4>Instant Preview</h4><p>Download se pehle dekh lo</p></div>
     <div class="feature-item"><div class="fi-icon"><i class="fa-solid fa-users"></i></div><h4>Community</h4><p>Doubts solve karo saath mein</p></div>
@@ -368,7 +379,7 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
 <div class="stats-strip">
   <div class="stat"><div class="stat-num">9+</div><div class="stat-label">Subjects</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free Preview</div></div>
-  <div class="stat"><div class="stat-num">24x7</div><div class="stat-label">WhatsApp Support</div></div>
+  <div class="stat"><div class="stat-num">24x7</div><div class="stat-label">Telegram Support</div></div>
   <div class="stat"><div class="stat-num">1</div><div class="stat-label">Resume Builder</div></div>
 </div>
 
@@ -377,7 +388,7 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
   <div class="section-head">
     <div class="section-label"><i class="fa-solid fa-layer-group"></i>Study Material</div>
     <h2 class="section-title">Notes for Every Subject</h2>
-    <p class="section-desc">Free version turant download karo. Premium/detailed notes ke liye Paid button dabao — seedha WhatsApp khulega.</p>
+    <p class="section-desc">Free version turant download karo. Premium/detailed notes ke liye Paid button dabao — seedha Telegram khulega.</p>
   </div>
 
   <div class="filter-bar" id="filterBar">
@@ -422,12 +433,12 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
   <div class="community-inner">
     <div class="section-label" style="justify-content:center;"><i class="fa-solid fa-comments"></i>Stay Connected</div>
     <h2 class="section-title">Join the Community</h2>
-    <p class="section-desc" style="margin:0 auto;">Doubts, updates aur premium notes ke liye humse WhatsApp pe seedha judo.</p>
+    <p class="section-desc" style="margin:0 auto;">Doubts, updates aur premium notes ke liye humse Telegram pe seedha judo.</p>
     <div class="social-grid">
-      <a class="social-card sc-wa" id="communityWaBtn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>WhatsApp</a>
-      <a class="social-card sc-yt" href="#"><i class="fa-brands fa-youtube"></i>YouTube</a>
-      <a class="social-card sc-ig" href="#"><i class="fa-brands fa-instagram"></i>Instagram</a>
-      <a class="social-card sc-tg" href="#"><i class="fa-brands fa-telegram"></i>Telegram</a>
+      <a class="social-card sc-tg" id="communityTgBtn" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i>Telegram</a>
+      <a class="social-card sc-yt" href="https://youtube.com/@codewithai.v?si=B1243IrjVL4h6tVd" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i>YouTube</a>
+      <a class="social-card sc-ig" href="https://www.instagram.com/cse_aspirant_v?igsh=MWVyd2RwaGp4MHkwbg==" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i>Instagram</a>
+      <a class="social-card sc-fb" href="https://www.facebook.com/share/18r7cqAY7e/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i>Facebook</a>
     </div>
   </div>
 </section>
@@ -439,7 +450,7 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
   <div class="footer-strip">
     <span>&copy; 2026 Code With AI.</span>
     <span>All rights reserved.</span>
-    <span>Premium notes on <a href="#" id="footerWaLink" style="color:#25d366; text-decoration:none; font-weight:700;">WhatsApp</a></span>
+    <span>Premium notes on <a href="#" id="footerTgLink" style="color:#0088CC; text-decoration:none; font-weight:700;">Telegram</a></span>
   </div>
 </footer>
 
@@ -455,19 +466,19 @@ footer { position:relative; z-index:1; padding:38px 24px 26px;
     </div>
     <div class="modal-footer">
       <a class="modal-dl" id="modalFreeBtn" href="#" target="_blank" rel="noopener"><i class="fa-solid fa-download"></i>Free Download</a>
-      <a class="modal-wa" id="modalWaBtn" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Get Premium</a>
+      <a class="modal-tg" id="modalTgBtn" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i>Get Premium</a>
     </div>
   </div>
 </div>
 
 <script>
 /* ── Config ── */
-const WHATSAPP_NUMBER = "917260818774";
+const TELEGRAM_USERNAME = "cse_aspriant";
 const RESUME_BUILDER_URL = "https://resume-builder-client-dun.vercel.app/";
 
-function waLink(subject){
+function tgLink(subject){
   const msg = "Hi! I want the PREMIUM notes for " + subject + " (from Code With AI website).";
-  return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+  return "https://t.me/" + TELEGRAM_USERNAME + "?text=" + encodeURIComponent(msg);
 }
 
 const subjects = [
@@ -498,7 +509,7 @@ subjects.forEach(s => {
     <div class="note-actions">
       <button class="btn-preview" data-preview="${s.id}" data-name="${s.name}"><i class="fa-solid fa-eye"></i>Preview</button>
       <a class="btn-free" href="https://drive.google.com/uc?export=download&id=${s.id}" target="_blank" rel="noopener"><i class="fa-solid fa-download"></i>Free</a>
-      <a class="btn-whatsapp" href="${waLink(s.name)}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Paid</a>
+      <a class="btn-telegram" href="${tgLink(s.name)}" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i>Paid</a>
     </div>
   `;
   notesGrid.appendChild(card);
@@ -509,10 +520,10 @@ const ticker = document.getElementById('ticker');
 const tickerItems = subjects.map(s => `<span class="ticker-item"><i class="fa-solid fa-star"></i>${s.name}</span>`).join('');
 ticker.innerHTML = tickerItems + tickerItems;
 
-/* ── Nav / Community / Footer WhatsApp links ── */
-document.getElementById('navWaBtn').href = waLink("General Query");
-document.getElementById('communityWaBtn').href = waLink("Community");
-document.getElementById('footerWaLink').href = waLink("General Query");
+/* ── Nav / Community / Footer Telegram links ── */
+document.getElementById('navTgBtn').href = tgLink("General Query");
+document.getElementById('communityTgBtn').href = tgLink("Community");
+document.getElementById('footerTgLink').href = tgLink("General Query");
 
 /* ── Filter ── */
 document.getElementById('filterBar').addEventListener('click', (e) => {
@@ -531,7 +542,7 @@ const modalOverlay = document.getElementById('modalOverlay');
 const modalFrame = document.getElementById('modalFrame');
 const modalTitle = document.getElementById('modalTitle');
 const modalFreeBtn = document.getElementById('modalFreeBtn');
-const modalWaBtn = document.getElementById('modalWaBtn');
+const modalTgBtn = document.getElementById('modalTgBtn');
 
 notesGrid.addEventListener('click', (e) => {
   const btn = e.target.closest('.btn-preview');
@@ -541,7 +552,7 @@ notesGrid.addEventListener('click', (e) => {
   modalTitle.textContent = name + " — Preview";
   modalFrame.src = "https://drive.google.com/file/d/" + id + "/preview";
   modalFreeBtn.href = "https://drive.google.com/uc?export=download&id=" + id;
-  modalWaBtn.href = waLink(name);
+  modalTgBtn.href = tgLink(name);
   modalOverlay.classList.add('active');
 });
 
@@ -561,17 +572,20 @@ document.getElementById('themeToggle').addEventListener('click', () => {
 });
 
 /* ── Mobile hamburger ── */
-document.querySelector('.hamburger').addEventListener('click', () => {
-  const links = document.querySelector('.nav-links');
-  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-  links.style.position = 'fixed';
-  links.style.top = '64px';
-  links.style.left = '0';
-  links.style.right = '0';
-  links.style.flexDirection = 'column';
-  links.style.background = 'var(--nav-bg)';
-  links.style.padding = '18px';
-  links.style.borderBottom = '1px solid var(--border)';
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+/* Close menu when clicking outside */
+document.addEventListener('click', (e) => {
+  if(!hamburger.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('active')) {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('active');
+  }
 });
 </script>
 </body>
