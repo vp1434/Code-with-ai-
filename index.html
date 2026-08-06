@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code With AI — Learn. Code. Build. Succeed.</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+[data-theme="dark"] {
+  --bg:#080818; --bg2:#0e0e28; --card:#0f0f2a; --card2:#12123a;
+  --purple:#7c3aed; --purple-l:#a855f7; --blue:#2563eb; --cyan:#06b6d4;
+  --text:#f0f4ff; --text2:#8892b0; --border:rgba(124,58,237,0.3);
+  --nav-bg:rgba(8,8,24,0.9); --shadow:rgba(124,58,237,0.25);
+  --ticker-bg:rgba(124,58,237,0.07); --feat-bg:rgba(14,14,40,0.7);
+  --quote-bg:#0e0e28; --foot-bg:#080818;
+  --glow1:rgba(124,58,237,0.18); --glow2:rgba(37,99,235,0.15); --glow3:rgba(6,182,212,0.06);
+  --filter-bg:rgba(15,15,42,0.8); --toggle-c:#a855f7;
+}
+[data-theme="light"] {
+  --bg:#f0f2ff; --bg2:#e6e9ff; --card:#ffffff; --card2:#f4f5ff;
+  --purple:#6d28d9; --purple-l:#8b5cf6; --blue:#1d4ed8; --cyan:#0891b2;
+  --text:#1a1a3e; --text2:#4b5680; --border:rgba(109,40,217,0.2);
+  --nav-bg:rgba(240,242,255,0.93); --shadow:rgba(109,40,217,0.15);
+  --ticker-bg:rgba(109,40,217,0.06); --feat-bg:rgba(230,233,255,0.8);
+  --quote-bg:#e6e9ff; --foot-bg:#dde0ff;
+  --glow1:rgba(109,40,217,0.08); --glow2:rgba(29,78,216,0.07); --glow3:rgba(8,145,178,0.04);
+  --filter-bg:rgba(255,255,255,0.9); --toggle-c:#6d28d9;
+}
+
+html { scroll-behavior: smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans-serif; overflow-x:hidden; min-height:100vh; transition:background .35s,color .35s; }
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background: radial-gradient(ellipse 60% 40% at 80% 10%,var(--glow1) 0%,transparent 60%),
+              radial-gradient(ellipse 50% 40% at 10% 80%,var(--glow2) 0%,transparent 60%),
+              radial-gradient(ellipse 40% 30% at 50% 50%,var(--glow3) 0%,transparent 60%);
+  transition:background .35s;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 36px;
+  background:var(--nav-bg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border); transition:background .35s,border-color .35s;
+}
+.nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.nav-brand img { width:38px; height:38px; border-radius:8px; object-fit:cover; }
+.nav-logo { font-family:'Orbitron',monospace; font-size:1rem; font-weight:900;
+  background:linear-gradient(90deg,#06b6d4,#a855f7,#2563eb);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:1px; }
+.nav-logo small { display:block; font-family:'Space Grotesk',sans-serif; font-size:0.6rem; font-weight:500;
+  letter-spacing:3px; text-transform:uppercase; -webkit-text-fill-color:var(--text2); color:var(--text2); margin-top:2px; }
+
+.nav-links { display:flex; gap:24px; list-style:none; align-items:center; }
+.nav-links a { color:var(--text2); text-decoration:none; font-size:0.85rem; font-weight:500; transition:color .2s; display:flex; align-items:center; gap:6px; }
+.nav-links a:hover { color:var(--cyan); }
+
+.nav-right { display:flex; align-items:center; gap:10px; }
+
+.theme-toggle { width:46px; height:26px; background:rgba(124,58,237,0.15); border:1.5px solid var(--border);
+  border-radius:50px; cursor:pointer; position:relative; transition:background .3s,border-color .3s; flex-shrink:0; }
+.theme-toggle::after { content:''; position:absolute; top:3px; left:3px; width:18px; height:18px;
+  border-radius:50%; background:var(--toggle-c); transition:transform .3s,background .3s; }
+[data-theme="light"] .theme-toggle::after { transform:translateX(20px); }
+.theme-icon { position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between;
+  padding:0 5px; pointer-events:none; font-size:0.58rem; }
+.theme-icon .fa-sun { color:#f59e0b; } .theme-icon .fa-moon { color:#818cf8; }
+
+.nav-cta { background:linear-gradient(135deg,#25d366,#128c7e); color:#fff !important; border:none;
+  padding:8px 18px; border-radius:50px; font-size:0.82rem; font-weight:700; cursor:pointer;
+  text-decoration:none; transition:opacity .2s,transform .2s; display:flex; align-items:center; gap:7px; white-space:nowrap; }
+.nav-cta:hover { opacity:.85; transform:translateY(-1px); }
+
+.hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:4px; }
+.hamburger span { width:22px; height:2px; background:var(--text); border-radius:2px; transition:.3s; display:block; }
+
+/* ── HERO ── */
+.hero { position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:110px 24px 80px; }
+.hero-inner { max-width:840px; }
+.hero-pill { display:inline-flex; align-items:center; gap:8px; background:rgba(124,58,237,0.12);
+  border:1px solid var(--border); border-radius:50px; padding:6px 18px;
+  font-size:0.74rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--cyan); margin-bottom:24px; font-weight:700; }
+.hero-pill i { color:var(--purple-l); }
+
+.hero-logo-wrap { display:flex; align-items:center; justify-content:center; gap:18px; margin-bottom:10px; }
+.hero-logo-img { width:72px; height:72px; border-radius:16px; object-fit:cover;
+  border:2px solid var(--border); box-shadow:0 0 28px var(--shadow); }
+
+.hero-title { font-family:'Orbitron',monospace; font-size:clamp(2.8rem,9vw,6rem); font-weight:900;
+  line-height:.95; letter-spacing:-2px; color:var(--text); }
+.hero-title .with { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:clamp(1.4rem,4.5vw,3rem);
+  color:var(--text2); display:block; letter-spacing:5px; text-transform:uppercase; margin:6px 0; }
+.hero-title .ai { background:linear-gradient(135deg,#06b6d4,#a855f7,#2563eb);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+.hero-band { display:inline-block; background:linear-gradient(90deg,var(--purple),var(--blue)); color:#fff;
+  font-size:0.86rem; font-weight:800; letter-spacing:2.5px; text-transform:uppercase;
+  padding:8px 26px; border-radius:6px; margin:20px 0 26px; }
+
+.hero-desc { color:var(--text2); font-size:0.98rem; line-height:1.78; max-width:560px; margin:0 auto 34px; }
+.hero-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+.btn-primary { background:linear-gradient(135deg,var(--purple),var(--blue)); color:#fff; border:none;
+  padding:13px 28px; border-radius:50px; font-size:0.9rem; font-weight:700; cursor:pointer;
+  text-decoration:none; transition:transform .2s,box-shadow .2s; box-shadow:0 0 24px var(--shadow);
+  font-family:'Space Grotesk',sans-serif; display:inline-flex; align-items:center; gap:8px; }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 40px var(--shadow); }
+
+.btn-outline { background:transparent; color:var(--text); border:1.5px solid var(--border);
+  padding:13px 28px; border-radius:50px; font-size:0.9rem; font-weight:600; cursor:pointer;
+  text-decoration:none; transition:border-color .2s,background .2s,color .2s;
+  font-family:'Space Grotesk',sans-serif; display:inline-flex; align-items:center; gap:8px; }
+.btn-outline:hover { border-color:var(--cyan); background:rgba(6,182,212,0.07); color:var(--cyan); }
+
+/* ── TICKER ── */
+.ticker-wrap { overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:13px 0; background:var(--ticker-bg); position:relative; z-index:1; transition:background .35s; }
+.ticker { display:flex; gap:56px; animation:ticker 24s linear infinite; width:max-content; }
+.ticker-item { font-size:0.76rem; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+  color:var(--text2); white-space:nowrap; display:flex; align-items:center; gap:9px; }
+.ticker-item i { color:var(--purple-l); font-size:0.7rem; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── FEATURES ── */
+.features { position:relative; z-index:1; padding:52px 24px; background:var(--feat-bg);
+  border-bottom:1px solid var(--border); transition:background .35s; }
+.features-grid { max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:18px; }
+.feature-item { display:flex; flex-direction:column; align-items:center; gap:11px; padding:22px 12px;
+  border-radius:18px; border:1px solid var(--border); background:var(--card); text-align:center;
+  transition:border-color .3s,transform .3s,background .35s,box-shadow .3s; }
+.feature-item:hover { border-color:var(--purple); transform:translateY(-5px); box-shadow:0 14px 36px var(--shadow); }
+.fi-icon { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(37,99,235,.12));
+  border:1.5px solid var(--border); transition:background .35s; }
+.feature-item h4 { font-size:0.79rem; font-weight:700; letter-spacing:.3px; text-transform:uppercase; color:var(--text); line-height:1.3; }
+.feature-item p { font-size:0.72rem; color:var(--text2); line-height:1.5; }
+
+/* ── STATS ── */
+.stats-strip { display:flex; justify-content:center; flex-wrap:wrap; gap:44px; padding:50px 24px;
+  position:relative; z-index:1; border-bottom:1px solid var(--border); background:var(--bg); transition:background .35s; }
+.stat { text-align:center; }
+.stat-num { font-family:'Orbitron',monospace; font-size:2rem; font-weight:900;
+  background:linear-gradient(135deg,var(--cyan),var(--purple-l));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.stat-label { font-size:0.74rem; color:var(--text2); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px; }
+
+/* ── SECTION COMMON ── */
+section { position:relative; z-index:1; padding:80px 24px; }
+.section-label { font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--cyan);
+  font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.section-title { font-family:'Orbitron',monospace; font-size:clamp(1.5rem,3.8vw,2.4rem);
+  font-weight:900; line-height:1.15; margin-bottom:14px; color:var(--text); }
+.section-desc { color:var(--text2); font-size:0.95rem; line-height:1.75; max-width:500px; }
+.section-head { margin-bottom:44px; }
+
+/* ── FILTER BAR ── */
+.filter-bar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+.filter-btn { padding:8px 20px; border-radius:50px; border:1.5px solid var(--border);
+  background:transparent; color:var(--text2); font-size:0.82rem; font-weight:600; cursor:pointer;
+  font-family:'Space Grotesk',sans-serif; transition:all .2s; display:flex; align-items:center; gap:7px; }
+.filter-btn:hover { border-color:var(--purple); color:var(--purple-l); }
+.filter-btn.active { background:linear-gradient(135deg,var(--purple),var(--blue)); color:#fff; border-color:transparent; }
+
+/* ── RESOURCE CARDS ── */
+.resources-section { background:var(--bg2); transition:background .35s; }
+.notes-grid { max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(305px,1fr)); gap:20px; }
+
+.note-card { background:var(--card); border:1px solid var(--border); border-radius:20px;
+  padding:24px; display:flex; flex-direction:column; gap:14px;
+  transition:border-color .3s,transform .3s,box-shadow .3s,background .35s;
+  position:relative; overflow:hidden; }
+.note-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--purple),var(--blue),var(--cyan)); opacity:0; transition:opacity .3s; }
+.note-card:hover { border-color:var(--purple); transform:translateY(-6px); box-shadow:0 20px 54px var(--shadow); }
+.note-card:hover::before { opacity:1; }
+.note-card.hidden { display:none; }
+
+.note-top { display:flex; align-items:center; gap:14px; }
+.note-icon { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.note-info h3 { font-size:0.97rem; font-weight:700; color:var(--text); margin-bottom:3px; }
+.note-info p { font-size:0.77rem; color:var(--text2); line-height:1.4; }
+
+.note-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.note-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 11px; border-radius:20px;
+  font-size:0.68rem; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+.badge-free    { background:rgba(16,185,129,.12); color:#10b981; border:1px solid rgba(16,185,129,.3); }
+.badge-premium { background:rgba(245,158,11,.12); color:#f59e0b; border:1px solid rgba(245,158,11,.3); }
+
+.note-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.btn-preview { flex:1; min-width:90px; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border);
+  background:transparent; color:var(--purple-l); font-size:0.81rem; font-weight:600; cursor:pointer;
+  transition:all .2s; text-decoration:none; font-family:'Space Grotesk',sans-serif;
+  display:flex; align-items:center; justify-content:center; gap:6px; }
+.btn-preview:hover { background:rgba(124,58,237,.1); border-color:var(--purple); }
+
+.btn-free { flex:1; min-width:90px; padding:9px 10px; border-radius:10px; border:none;
+  background:linear-gradient(135deg,#10b981,#059669); color:#fff;
+  font-size:0.81rem; font-weight:700; cursor:pointer; transition:all .2s;
+  text-decoration:none; font-family:'Space Grotesk',sans-serif;
+  display:flex; align-items:center; justify-content:center; gap:6px; }
+.btn-free:hover { opacity:.85; transform:translateY(-1px); }
+
+.btn-whatsapp { flex:1; min-width:90px; padding:9px 10px; border-radius:10px; border:none;
+  background:linear-gradient(135deg,#25d366,#128c7e); color:#fff;
+  font-size:0.81rem; font-weight:700; cursor:pointer; transition:all .2s;
+  text-decoration:none; font-family:'Space Grotesk',sans-serif;
+  display:flex; align-items:center; justify-content:center; gap:6px; }
+.btn-whatsapp:hover { opacity:.85; transform:translateY(-1px); }
+
+/* ── TOOL CARD (Resume Builder) ── */
+.tool-section { background:var(--bg); transition:background .35s; }
+.tool-card {
+  max-width:780px; margin:0 auto;
+  background:var(--card); border:1px solid var(--border); border-radius:24px; padding:36px;
+  display:flex; align-items:center; gap:28px; flex-wrap:wrap;
+  position:relative; overflow:hidden;
+  transition:background .35s,border-color .3s,box-shadow .3s;
+}
+.tool-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--purple),var(--blue),var(--cyan)); }
+.tool-card:hover { border-color:var(--purple); box-shadow:0 20px 54px var(--shadow); }
+.tool-icon { width:80px; height:80px; border-radius:18px; flex-shrink:0;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:#fff; }
+.tool-body { flex:1; min-width:200px; }
+.tool-body h3 { font-family:'Orbitron',monospace; font-size:1.2rem; font-weight:900; color:var(--text); margin-bottom:8px; }
+.tool-body p { color:var(--text2); font-size:0.92rem; line-height:1.65; margin-bottom:16px; }
+.tool-tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+.tool-tag { padding:3px 10px; border-radius:20px; font-size:0.7rem; font-weight:600;
+  background:rgba(124,58,237,.12); color:var(--purple-l); border:1px solid var(--border); }
+
+/* ── QUOTE ── */
+.quote-band { position:relative; z-index:1; padding:60px 24px; text-align:center;
+  background:var(--quote-bg); border-top:1px solid var(--border); border-bottom:1px solid var(--border); transition:background .35s; }
+.quote-mark { font-size:5rem; line-height:1; background:linear-gradient(135deg,var(--purple),var(--blue));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  font-family:Georgia,serif; display:block; margin-bottom:-14px; }
+.quote-text { font-size:clamp(1rem,2.6vw,1.55rem); font-weight:700; max-width:660px;
+  margin:0 auto; line-height:1.55; color:var(--text); }
+.quote-text em { font-style:normal; background:linear-gradient(90deg,var(--cyan),var(--purple-l));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+/* ── COMMUNITY ── */
+.community-section { text-align:center;
+  background:linear-gradient(135deg,rgba(124,58,237,.05),rgba(37,99,235,.05)); transition:background .35s; }
+.community-inner { max-width:720px; margin:0 auto; }
+.social-grid { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:38px; }
+.social-card { display:flex; align-items:center; gap:10px; padding:12px 20px;
+  border-radius:14px; border:1px solid var(--border); background:var(--card);
+  text-decoration:none; color:var(--text); font-weight:600; font-size:0.86rem;
+  transition:all .25s; }
+.social-card:hover { border-color:var(--purple); transform:translateY(-3px); box-shadow:0 12px 28px var(--shadow); }
+.social-card i { font-size:1.15rem; }
+.sc-wa i{color:#25D366} .sc-yt i{color:#FF0000} .sc-ig i{color:#E1306C} .sc-tg i{color:#0088CC}
+
+/* ── FOOTER ── */
+footer { position:relative; z-index:1; padding:38px 24px 26px;
+  border-top:1px solid var(--border); text-align:center; background:var(--foot-bg); transition:background .35s; }
+.footer-logo { font-family:'Orbitron',monospace; font-size:1.2rem; font-weight:900;
+  background:linear-gradient(90deg,#06b6d4,#a855f7);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:6px; }
+.footer-sub { font-size:0.74rem; color:var(--text2); letter-spacing:3px; text-transform:uppercase; margin-bottom:18px; }
+.footer-strip { display:flex; justify-content:center; gap:6px; font-size:0.78rem; color:var(--text2); flex-wrap:wrap; align-items:center; }
+
+/* ── MODAL ── */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(4,4,20,.9); z-index:500;
+  align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(10px); }
+.modal-overlay.active { display:flex; }
+.modal-box { background:var(--card2); border:1px solid var(--border); border-radius:20px;
+  width:100%; max-width:840px; max-height:90vh; overflow:hidden; display:flex; flex-direction:column; }
+.modal-header { padding:16px 20px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; }
+.modal-header h3 { font-size:0.95rem; font-weight:700; display:flex; align-items:center; gap:8px; }
+.modal-header h3 i { color:var(--purple-l); }
+.modal-close { width:32px; height:32px; border-radius:50%; border:1px solid var(--border); background:transparent;
+  color:var(--text); font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+.modal-close:hover { background:rgba(124,58,237,.15); }
+.modal-body { flex:1; overflow:hidden; padding:18px; }
+.modal-body iframe { width:100%; min-height:480px; height:100%; border:none; border-radius:10px; background:#fff; }
+.modal-footer { padding:13px 20px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; align-items:center; flex-wrap:wrap; }
+.modal-dl { background:linear-gradient(135deg,#10b981,#059669); color:#fff; border:none;
+  padding:9px 22px; border-radius:10px; font-size:0.84rem; font-weight:700; cursor:pointer;
+  text-decoration:none; font-family:'Space Grotesk',sans-serif;
+  display:flex; align-items:center; gap:7px; transition:opacity .2s; }
+.modal-dl:hover { opacity:.85; }
+.modal-wa { background:linear-gradient(135deg,#25d366,#128c7e); color:#fff; border:none;
+  padding:9px 22px; border-radius:10px; font-size:0.84rem; font-weight:700; cursor:pointer;
+  text-decoration:none; font-family:'Space Grotesk',sans-serif;
+  display:flex; align-items:center; gap:7px; transition:opacity .2s; }
+.modal-wa:hover { opacity:.85; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:860px){
+  .nav-links{ display:none; }
+  .hamburger{ display:flex; }
+}
+@media (max-width:520px){
+  .hero-btns{ flex-direction:column; width:100%; }
+  .hero-btns a{ width:100%; }
+  .tool-card{ flex-direction:column; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#top" class="nav-brand">
+    <img src="https://drive.google.com/uc?export=view&id=1ZSssng3CWdnuVFV52D3XJ5sqlcwxvevn" alt="Code With AI logo" onerror="this.style.display='none'">
+    <span class="nav-logo">CODE WITH AI<small>Learn · Code · Build</small></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#notes"><i class="fa-solid fa-book"></i>Notes</a></li>
+    <li><a href="#tools"><i class="fa-solid fa-wrench"></i>Tools</a></li>
+    <li><a href="#community"><i class="fa-solid fa-users"></i>Community</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-icon"><i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i></span>
+    </button>
+    <a class="nav-cta" id="navWaBtn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Get Premium</a>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-pill"><i class="fa-solid fa-bolt"></i>Free &amp; Premium Study Material</div>
+    <div class="hero-logo-wrap">
+      <img class="hero-logo-img" src="https://drive.google.com/uc?export=view&id=1ZSssng3CWdnuVFV52D3XJ5sqlcwxvevn" alt="" onerror="this.style.display='none'">
+    </div>
+    <h1 class="hero-title">CODE<span class="with">with</span><span class="ai">AI</span></h1>
+    <div class="hero-band">Notes · Resume Builder · Community</div>
+    <p class="hero-desc">Python se leke DBMS tak — sab subjects ke notes ek jagah. Free notes turant download karo, ya premium notes ke liye seedha WhatsApp pe message karo.</p>
+    <div class="hero-btns">
+      <a href="#notes" class="btn-primary"><i class="fa-solid fa-book-open"></i>Browse Notes</a>
+      <a href="https://resume-builder-client-dun.vercel.app/" target="_blank" rel="noopener" class="btn-outline"><i class="fa-solid fa-file-lines"></i>Build Resume</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── TICKER ── -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker"></div>
+</div>
+
+<!-- ── FEATURES ── -->
+<section class="features">
+  <div class="features-grid">
+    <div class="feature-item"><div class="fi-icon"><i class="fa-solid fa-download"></i></div><h4>Free Notes</h4><p>Har subject ke free PDF notes</p></div>
+    <div class="feature-item"><div class="fi-icon"><i class="fa-brands fa-whatsapp"></i></div><h4>Premium on WhatsApp</h4><p>Detailed notes, seedha chat pe</p></div>
+    <div class="feature-item"><div class="fi-icon"><i class="fa-solid fa-file-lines"></i></div><h4>Resume Builder</h4><p>Free online resume banao</p></div>
+    <div class="feature-item"><div class="fi-icon"><i class="fa-solid fa-eye"></i></div><h4>Instant Preview</h4><p>Download se pehle dekh lo</p></div>
+    <div class="feature-item"><div class="fi-icon"><i class="fa-solid fa-users"></i></div><h4>Community</h4><p>Doubts solve karo saath mein</p></div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-strip">
+  <div class="stat"><div class="stat-num">9+</div><div class="stat-label">Subjects</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free Preview</div></div>
+  <div class="stat"><div class="stat-num">24x7</div><div class="stat-label">WhatsApp Support</div></div>
+  <div class="stat"><div class="stat-num">1</div><div class="stat-label">Resume Builder</div></div>
+</div>
+
+<!-- ── NOTES ── -->
+<section class="resources-section" id="notes">
+  <div class="section-head">
+    <div class="section-label"><i class="fa-solid fa-layer-group"></i>Study Material</div>
+    <h2 class="section-title">Notes for Every Subject</h2>
+    <p class="section-desc">Free version turant download karo. Premium/detailed notes ke liye Paid button dabao — seedha WhatsApp khulega.</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all"><i class="fa-solid fa-border-all"></i>All</button>
+    <button class="filter-btn" data-filter="programming"><i class="fa-solid fa-code"></i>Programming</button>
+    <button class="filter-btn" data-filter="web"><i class="fa-solid fa-globe"></i>Web</button>
+    <button class="filter-btn" data-filter="core"><i class="fa-solid fa-microchip"></i>CS Core</button>
+  </div>
+
+  <div class="notes-grid" id="notesGrid"></div>
+</section>
+
+<!-- ── RESUME BUILDER TOOL ── -->
+<section class="tool-section" id="tools">
+  <div class="section-head" style="text-align:center; max-width:600px; margin-left:auto; margin-right:auto;">
+    <div class="section-label" style="justify-content:center;"><i class="fa-solid fa-toolbox"></i>Free Tool</div>
+    <h2 class="section-title">Build Your Resume</h2>
+  </div>
+  <div class="tool-card">
+    <div class="tool-icon"><i class="fa-solid fa-file-lines"></i></div>
+    <div class="tool-body">
+      <h3>AI Resume Builder</h3>
+      <p>Chand minutes mein professional resume banao — apna data bharo aur ready-to-download resume paao. Bilkul free.</p>
+      <div class="tool-tags">
+        <span class="tool-tag">Free</span>
+        <span class="tool-tag">No Signup Hassle</span>
+        <span class="tool-tag">PDF Download</span>
+      </div>
+      <a href="https://resume-builder-client-dun.vercel.app/" target="_blank" rel="noopener" class="btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i>Open Resume Builder</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUOTE ── -->
+<div class="quote-band">
+  <span class="quote-mark">"</span>
+  <p class="quote-text">Free notes se <em>shuru</em> karo, premium notes se <em>maharat</em> haasil karo.</p>
+</div>
+
+<!-- ── COMMUNITY ── -->
+<section class="community-section" id="community">
+  <div class="community-inner">
+    <div class="section-label" style="justify-content:center;"><i class="fa-solid fa-comments"></i>Stay Connected</div>
+    <h2 class="section-title">Join the Community</h2>
+    <p class="section-desc" style="margin:0 auto;">Doubts, updates aur premium notes ke liye humse WhatsApp pe seedha judo.</p>
+    <div class="social-grid">
+      <a class="social-card sc-wa" id="communityWaBtn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>WhatsApp</a>
+      <a class="social-card sc-yt" href="#"><i class="fa-brands fa-youtube"></i>YouTube</a>
+      <a class="social-card sc-ig" href="#"><i class="fa-brands fa-instagram"></i>Instagram</a>
+      <a class="social-card sc-tg" href="#"><i class="fa-brands fa-telegram"></i>Telegram</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">CODE WITH AI</div>
+  <div class="footer-sub">Learn · Code · Build · Succeed</div>
+  <div class="footer-strip">
+    <span>&copy; 2026 Code With AI.</span>
+    <span>All rights reserved.</span>
+    <span>Premium notes on <a href="#" id="footerWaLink" style="color:#25d366; text-decoration:none; font-weight:700;">WhatsApp</a></span>
+  </div>
+</footer>
+
+<!-- ── PREVIEW MODAL ── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-eye"></i><span id="modalTitle">Preview</span></h3>
+      <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <iframe id="modalFrame" src="" title="Note preview" allow="autoplay"></iframe>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-dl" id="modalFreeBtn" href="#" target="_blank" rel="noopener"><i class="fa-solid fa-download"></i>Free Download</a>
+      <a class="modal-wa" id="modalWaBtn" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Get Premium</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Config ── */
+const WHATSAPP_NUMBER = "917260818774";
+const RESUME_BUILDER_URL = "https://resume-builder-client-dun.vercel.app/";
+
+function waLink(subject){
+  const msg = "Hi! I want the PREMIUM notes for " + subject + " (from Code With AI website).";
+  return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+}
+
+const subjects = [
+  { name:"Python",        desc:"Basics to advanced Python programming",  icon:"fa-brands fa-python",      color:"#3776AB", cat:"programming", id:"1tT5s8iIFDl-cRSHMCASupzTkb_4govHP" },
+  { name:"C Language",    desc:"Core C programming fundamentals",        icon:"fa-solid fa-code",         color:"#5C6BC0", cat:"programming", id:"19OY6wDu08SmjDBgPU2I2lP_tC_6gKyGd" },
+  { name:"C++",           desc:"OOP concepts with C++",                  icon:"fa-solid fa-plus",         color:"#00599C", cat:"programming", id:"1L8Zl1FHCjSvnsH3vPQAHvK19qtmgZTlA" },
+  { name:"JavaScript",    desc:"Modern JS for the web",                  icon:"fa-brands fa-js",          color:"#F7DF1E", cat:"web",         id:"1mphRN3WmvavGsDfAQbuCegyNCnoZ-mJC" },
+  { name:"HTML",          desc:"Structure of every webpage",             icon:"fa-brands fa-html5",       color:"#E34F26", cat:"web",         id:"1Hs6MVrgosxYxPrLySCDVqTVYalNNl1P-" },
+  { name:"CSS",           desc:"Styling &amp; layouts made easy",        icon:"fa-brands fa-css3-alt",    color:"#1572B6", cat:"web",         id:"17Tv7RhDf6RdG686g7Xavbt4R_vTXEwOj" },
+  { name:"DBMS",          desc:"Database management concepts",           icon:"fa-solid fa-database",     color:"#F29111", cat:"core",        id:"1H5NsYM0Mb9B8m-4qgf0k4sTZHdfzO6Et" },
+  { name:"Operating System", desc:"OS concepts explained simply",        icon:"fa-solid fa-desktop",      color:"#8892b0", cat:"core",        id:"1bg89iRfBUKezTNrrJJBgDjLvA7d-jr-b" }
+];
+
+const notesGrid = document.getElementById('notesGrid');
+subjects.forEach(s => {
+  const card = document.createElement('div');
+  card.className = 'note-card';
+  card.dataset.cat = s.cat;
+  card.innerHTML = `
+    <div class="note-top">
+      <div class="note-icon" style="background:${s.color}22;"><i class="${s.icon}" style="color:${s.color}; font-size:1.4rem;"></i></div>
+      <div class="note-info"><h3>${s.name}</h3><p>${s.desc}</p></div>
+    </div>
+    <div class="note-meta">
+      <span class="note-badge badge-free"><i class="fa-solid fa-check"></i>Free</span>
+      <span class="note-badge badge-premium"><i class="fa-solid fa-crown"></i>Premium</span>
+    </div>
+    <div class="note-actions">
+      <button class="btn-preview" data-preview="${s.id}" data-name="${s.name}"><i class="fa-solid fa-eye"></i>Preview</button>
+      <a class="btn-free" href="https://drive.google.com/uc?export=download&id=${s.id}" target="_blank" rel="noopener"><i class="fa-solid fa-download"></i>Free</a>
+      <a class="btn-whatsapp" href="${waLink(s.name)}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Paid</a>
+    </div>
+  `;
+  notesGrid.appendChild(card);
+});
+
+/* ── Ticker ── */
+const ticker = document.getElementById('ticker');
+const tickerItems = subjects.map(s => `<span class="ticker-item"><i class="fa-solid fa-star"></i>${s.name}</span>`).join('');
+ticker.innerHTML = tickerItems + tickerItems;
+
+/* ── Nav / Community / Footer WhatsApp links ── */
+document.getElementById('navWaBtn').href = waLink("General Query");
+document.getElementById('communityWaBtn').href = waLink("Community");
+document.getElementById('footerWaLink').href = waLink("General Query");
+
+/* ── Filter ── */
+document.getElementById('filterBar').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filter = btn.dataset.filter;
+  document.querySelectorAll('.note-card').forEach(card => {
+    card.classList.toggle('hidden', filter !== 'all' && card.dataset.cat !== filter);
+  });
+});
+
+/* ── Preview Modal ── */
+const modalOverlay = document.getElementById('modalOverlay');
+const modalFrame = document.getElementById('modalFrame');
+const modalTitle = document.getElementById('modalTitle');
+const modalFreeBtn = document.getElementById('modalFreeBtn');
+const modalWaBtn = document.getElementById('modalWaBtn');
+
+notesGrid.addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn-preview');
+  if(!btn) return;
+  const id = btn.dataset.preview;
+  const name = btn.dataset.name;
+  modalTitle.textContent = name + " — Preview";
+  modalFrame.src = "https://drive.google.com/file/d/" + id + "/preview";
+  modalFreeBtn.href = "https://drive.google.com/uc?export=download&id=" + id;
+  modalWaBtn.href = waLink(name);
+  modalOverlay.classList.add('active');
+});
+
+function closeModal(){
+  modalOverlay.classList.remove('active');
+  modalFrame.src = "";
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+
+/* ── Theme toggle (in-memory, no storage) ── */
+let currentTheme = 'dark';
+document.getElementById('themeToggle').addEventListener('click', () => {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+});
+
+/* ── Mobile hamburger ── */
+document.querySelector('.hamburger').addEventListener('click', () => {
+  const links = document.querySelector('.nav-links');
+  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+  links.style.position = 'fixed';
+  links.style.top = '64px';
+  links.style.left = '0';
+  links.style.right = '0';
+  links.style.flexDirection = 'column';
+  links.style.background = 'var(--nav-bg)';
+  links.style.padding = '18px';
+  links.style.borderBottom = '1px solid var(--border)';
+});
+</script>
+</body>
+</html>
