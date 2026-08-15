@@ -711,6 +711,34 @@ footer {
   <div class="ticker" id="ticker"></div>
 </div>
 
+<!-- ════════════════ NOTES SECTION ════════════════ -->
+<section class="section notes-bg" id="notes">
+  <div class="section-inner">
+
+    <div class="section-head reveal">
+      <div class="section-eyebrow"><i class="fa-solid fa-layer-group"></i> Study Material</div>
+      <h2 class="section-title">Notes for Every Subject</h2>
+      <p class="section-sub">
+        Every subject has a <strong style="color:var(--green);">Free</strong> version you can download right now.
+        Click <strong style="color:var(--amber);">Paid</strong> to get the detailed premium version via Telegram.
+      </p>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-row reveal" id="filterBar">
+      <button class="fpill on" data-f="all"><i class="fa-solid fa-border-all"></i> All</button>
+      <button class="fpill" data-f="programming"><i class="fa-solid fa-code"></i> Programming</button>
+      <button class="fpill" data-f="web"><i class="fa-solid fa-globe"></i> Web Dev</button>
+      <button class="fpill" data-f="core"><i class="fa-solid fa-microchip"></i> CS Core</button>
+      <button class="fpill" data-f="aiml"><i class="fa-solid fa-brain"></i> AI / ML</button>
+    </div>
+
+    <!-- Cards rendered by JS -->
+    <div class="notes-grid" id="notesGrid"></div>
+
+  </div>
+</section>
+
 <!-- ════════════════ FEATURES ════════════════ -->
 <div class="features">
   <div class="features-inner">
@@ -755,7 +783,7 @@ footer {
 <!-- ════════════════ STATS ════════════════ -->
 <div class="stats reveal">
   <div class="stat-box">
-    <div class="stat-n">8+</div>
+    <div class="stat-n">15+</div>
     <div class="stat-l"><i class="fa-solid fa-book"></i> Subjects Covered</div>
   </div>
   <div class="stat-box">
@@ -771,33 +799,6 @@ footer {
     <div class="stat-l"><i class="fa-solid fa-file-lines"></i> Resume Builder</div>
   </div>
 </div>
-
-<!-- ════════════════ NOTES SECTION ════════════════ -->
-<section class="section notes-bg" id="notes">
-  <div class="section-inner">
-
-    <div class="section-head reveal">
-      <div class="section-eyebrow"><i class="fa-solid fa-layer-group"></i> Study Material</div>
-      <h2 class="section-title">Notes for Every Subject</h2>
-      <p class="section-sub">
-        Every subject has a <strong style="color:var(--green);">Free</strong> version you can download right now.
-        Click <strong style="color:var(--amber);">Paid</strong> to get the detailed premium version via Telegram.
-      </p>
-    </div>
-
-    <!-- Filter -->
-    <div class="filter-row reveal" id="filterBar">
-      <button class="fpill on" data-f="all"><i class="fa-solid fa-border-all"></i> All</button>
-      <button class="fpill" data-f="programming"><i class="fa-solid fa-code"></i> Programming</button>
-      <button class="fpill" data-f="web"><i class="fa-solid fa-globe"></i> Web Dev</button>
-      <button class="fpill" data-f="core"><i class="fa-solid fa-microchip"></i> CS Core</button>
-    </div>
-
-    <!-- Cards rendered by JS -->
-    <div class="notes-grid" id="notesGrid"></div>
-
-  </div>
-</section>
 
 <!-- ════════════════ RESUME TOOL ════════════════ -->
 <section class="section tool-bg" id="tools">
@@ -864,6 +865,9 @@ footer {
       <a class="scard sc-fb" href="https://www.facebook.com/share/18r7cqAY7e/" target="_blank" rel="noopener">
         <i class="fa-brands fa-facebook"></i> Facebook
       </a>
+      <a class="scard sc-wa" href="https://wa.me/917260818774" target="_blank" rel="noopener">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
     </div>
   </div>
 </section>
@@ -921,14 +925,25 @@ const tgLink = (sub) =>
 
 /* ── Subjects data ── */
 const SUBJECTS = [
-  { name: "Python",           desc: "Basics to advanced — variables, loops, OOP, modules",      icon: "fa-brands fa-python",     color: "#3776AB", bg: "#3776AB22", cat: "programming", id: "1tT5s8iIFDl-cRSHMCASupzTkb_4govHP" },
-  { name: "C Language",       desc: "Core C programming — pointers, memory, functions",          icon: "fa-solid fa-c",           color: "#A8B9CC", bg: "#A8B9CC22", cat: "programming", id: "19OY6wDu08SmjDBgPU2I2lP_tC_6gKyGd" },
-  { name: "C++",              desc: "Object-oriented programming, STL, and algorithms",          icon: "fa-solid fa-code",        color: "#00599C", bg: "#00599C22", cat: "programming", id: "1L8Zl1FHCjSvnsH3vPQAHvK19qtmgZTlA" },
-  { name: "Operating System", desc: "Processes, scheduling, memory management, deadlocks",      icon: "fa-solid fa-desktop",   color: "#8892b0", bg: "#8892b022", cat: "core",        id: "15JHP5SdxaxKRnCixvWQ3CwvJCUrr_u0T" },
-  { name: "JavaScript",       desc: "Modern JS — ES6+, DOM manipulation, async, APIs",          icon: "fa-brands fa-js",       color: "#F7DF1E", bg: "#F7DF1E22", cat: "web",         id: "1RmvYCU4yt_QCHr3zHU5zcd6gfPdTnVhI" },
-  { name: "HTML",             desc: "Web structure — tags, forms, semantic elements",            icon: "fa-brands fa-html5",    color: "#E34F26", bg: "#E34F2622", cat: "web",         id: "1KhMmrL-Lc3a8kXIlNFrsuw53rQcSTcy-" },
-  { name: "CSS",              desc: "Styling, Flexbox, Grid, animations — made easy",            icon: "fa-brands fa-css3-alt", color: "#1572B6", bg: "#1572B622", cat: "web",         id: "17Tv7RhDf6RdG686g7Xavbt4R_vTXEwOj" },
-  { name: "DBMS",             desc: "SQL, ER diagrams, normalization, transactions",             icon: "fa-solid fa-database",  color: "#F29111", bg: "#F2911122", cat: "core",        id: "1H5NsYM0Mb9B8m-4qgf0k4sTZHdfzO6Et" },
+  // ── Programming ──
+  { name:"Python",               desc:"Basics to advanced — variables, loops, OOP, modules",            icon:"fa-brands fa-python",       color:"#3776AB", bg:"#3776AB22", cat:"programming", id:"1tT5s8iIFDl-cRSHMCASupzTkb_4govHP" },
+  { name:"Python Libraries",     desc:"NumPy, Pandas, Matplotlib, Seaborn & more",                      icon:"fa-brands fa-python",       color:"#FFD43B", bg:"#FFD43B22", cat:"programming", id:"1CICT_Z7wrQ4Tv8GdFiQoDzKyemCWkre5" },
+  { name:"C Language",           desc:"Core C — pointers, memory, arrays, functions",                   icon:"fa-solid fa-c",             color:"#A8B9CC", bg:"#A8B9CC22", cat:"programming", id:"1iHgjZEvk0_yKjSFXABiHkKetYHqeB_2g" },
+  { name:"C++",                  desc:"OOP, STL, algorithms — placement ready",                         icon:"fa-solid fa-code",          color:"#00599C", bg:"#00599C22", cat:"programming", id:"1L8Zl1FHCjSvnsH3vPQAHvK19qtmgZTlA" },
+  { name:"DSA",                  desc:"Data structures & algorithms — arrays, trees, graphs, DP",       icon:"fa-solid fa-diagram-project",color:"#a855f7", bg:"#a855f722", cat:"programming", id:"1Mu5WO4J0PcRHVlV62H1iiU1SJyPl7PMH" },
+  // ── Web Dev ──
+  { name:"HTML",                 desc:"Web structure — tags, forms, semantic elements",                  icon:"fa-brands fa-html5",        color:"#E34F26", bg:"#E34F2622", cat:"web",         id:"1Hs6MVrgosxYxPrLySCDVqTVYalNNl1P-" },
+  { name:"CSS",                  desc:"Styling, Flexbox, Grid, animations — made easy",                  icon:"fa-brands fa-css3-alt",     color:"#1572B6", bg:"#1572B622", cat:"web",         id:"17Tv7RhDf6RdG686g7Xavbt4R_vTXEwOj" },
+  { name:"JavaScript",           desc:"Modern JS — ES6+, DOM manipulation, async, APIs",                 icon:"fa-brands fa-js",           color:"#F7DF1E", bg:"#F7DF1E22", cat:"web",         id:"1mphRN3WmvavGsDfAQbuCegyNCnoZ-mJC" },
+  // ── CS Core ──
+  { name:"DBMS",                 desc:"SQL, ER diagrams, normalization, transactions",                   icon:"fa-solid fa-database",      color:"#F29111", bg:"#F2911122", cat:"core",        id:"13j4O4yrEE9ixUIUtLnzpMjYAVqQNTlcD" },
+  { name:"Operating System",     desc:"Processes, scheduling, memory management, deadlocks",             icon:"fa-solid fa-server",        color:"#8892b0", bg:"#8892b022", cat:"core",        id:"1bg89iRfBUKezTNrrJJBgDjLvA7d-jr-b" },
+  { name:"Digital Logic",        desc:"Logic gates, Boolean algebra, circuits & combinational design",   icon:"fa-solid fa-microchip",     color:"#06b6d4", bg:"#06b6d422", cat:"core",        id:"1H-ffGXZ1hde8WL2jkBJbC0zXiV7Kpt6Q" },
+  { name:"Software Engineering", desc:"SDLC, design patterns, testing & project management",             icon:"fa-solid fa-gears",         color:"#10b981", bg:"#10b98122", cat:"core",        id:"19_S6Oj3XYg8sGi3qg_whEkDb7ibPMUlH" },
+  // ── AI / ML ──
+  { name:"Machine Learning",     desc:"Supervised, unsupervised — regression, classification, clustering",icon:"fa-solid fa-brain",        color:"#f59e0b", bg:"#f59e0b22", cat:"aiml",        id:"1tPUMG5EtJ1-dcLKg5MWVOzwxxEZQvsfK" },
+  { name:"Artificial Intelligence",desc:"Search, knowledge representation, AI planning & reasoning",    icon:"fa-solid fa-robot",         color:"#a855f7", bg:"#a855f722", cat:"aiml",        id:"1g9EJ5OAWBLl9nK5ani2m3oxniKXeTshN" },
+  { name:"Deep Learning",        desc:"Neural nets, CNNs, RNNs, transformers & backpropagation",        icon:"fa-solid fa-network-wired", color:"#06b6d4", bg:"#06b6d422", cat:"aiml",        id:"1Omvt5xuWAuY5rAgvU9ArRt4CQFxExnRP" },
 ];
 
 /* ── Render note cards ── */
