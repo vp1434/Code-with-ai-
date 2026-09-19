@@ -169,6 +169,18 @@ nav {
 }
 .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
+/* Gumroad CTA */
+.nav-gumroad {
+  background: linear-gradient(135deg, #ff90e8, #ff5fd1);
+  color: #0b0b20; border: none; padding: 8px 16px; border-radius: 99px;
+  font-size: 0.8rem; font-weight: 800; cursor: pointer; text-decoration: none;
+  display: flex; align-items: center; gap: 7px; white-space: nowrap;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 0 16px rgba(255,95,209,0.35);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.nav-gumroad:hover { opacity: 0.88; transform: translateY(-1px); }
+
 /* Hamburger */
 .hamburger {
   display: none; flex-direction: column; gap: 5px;
@@ -316,7 +328,14 @@ nav {
 .btn-green:hover  { opacity: 0.88; transform: translateY(-1px); }
 .btn-tg     { background: linear-gradient(135deg, #0088cc, #0066aa); color: #fff; }
 .btn-tg:hover     { opacity: 0.88; transform: translateY(-1px); }
+.btn-super  { background: linear-gradient(135deg, #7c3aed, #06b6d4); color: #fff; }
+.btn-super:hover  { opacity: 0.88; transform: translateY(-1px); }
 .btn-sm { padding: 8px 16px; font-size: 0.8rem; border-radius: 10px; }
+
+.btn-disabled {
+  opacity: 0.4; cursor: not-allowed; pointer-events: none;
+  background: var(--code-bg); color: var(--text2); border: 1.5px dashed var(--border2);
+}
 
 /* ══════════════════════════════════════════
    TICKER
@@ -327,7 +346,7 @@ nav {
   background: rgba(124,58,237,0.05); padding: 14px 0;
   transition: background 0.4s;
 }
-.ticker { display: flex; width: max-content; animation: slide 28s linear infinite; }
+.ticker { display: flex; width: max-content; animation: slide 34s linear infinite; }
 .ticker-item {
   display: flex; align-items: center; gap: 10px; padding: 0 40px;
   font-size: 0.74rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
@@ -457,6 +476,7 @@ nav {
 /* Action buttons inside card */
 .ncard-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .ncard-actions .btn { flex: 1; min-width: 80px; justify-content: center; padding: 9px 10px; border-radius: 10px; font-size: 0.8rem; }
+.ncard-label { font-size: 0.64rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); font-weight: 700; margin-top: 2px; }
 
 /* ══════════════════════════════════════════
    RESUME TOOL CARD
@@ -540,6 +560,7 @@ nav {
 .scard i { font-size: 1.2rem; }
 .sc-yt i { color: #FF0000; } .sc-ig i { color: #E1306C; }
 .sc-fb i { color: #1877F2; } .sc-tg i { color: #0088CC; } .sc-wa i { color: #25D366; }
+.sc-gr i { color: #FF90E8; }
 
 /* ══════════════════════════════════════════
    FOOTER
@@ -613,6 +634,7 @@ footer {
 @media (max-width: 860px) {
   nav { padding: 0 16px; }
   .nav-links { display: none; }
+  .nav-gumroad span.full { display: none; }
   .hamburger { display: flex; }
   .notes-grid { grid-template-columns: 1fr; }
   .features-inner { grid-template-columns: repeat(3, 1fr); }
@@ -650,6 +672,9 @@ footer {
     <button class="theme-toggle" id="themeToggle" aria-label="Switch theme">
       <span class="theme-icon"><i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i></span>
     </button>
+    <a class="nav-gumroad" id="navGumroadBtn" target="_blank" rel="noopener">
+      <i class="fa-solid fa-bag-shopping"></i> <span class="full">Gumroad Store</span>
+    </a>
     <a class="nav-cta" id="navTgBtn" target="_blank" rel="noopener">
       <i class="fa-brands fa-telegram"></i> Get Premium Notes
     </a>
@@ -664,6 +689,9 @@ footer {
   <a href="#notes"     onclick="closeMob()"><i class="fa-solid fa-book-open"></i> Notes</a>
   <a href="#tools"     onclick="closeMob()"><i class="fa-solid fa-wrench"></i> Tools</a>
   <a href="#community" onclick="closeMob()"><i class="fa-solid fa-users"></i> Community</a>
+  <a id="mobGumroadBtn" target="_blank" rel="noopener" style="color:#ff5fd1;">
+    <i class="fa-solid fa-bag-shopping"></i> Gumroad Store
+  </a>
   <a id="mobTgBtn" target="_blank" rel="noopener" style="color:#0088CC;">
     <i class="fa-brands fa-telegram"></i> Get Premium on Telegram
   </a>
@@ -720,7 +748,9 @@ footer {
       <h2 class="section-title">Notes for Every Subject</h2>
       <p class="section-sub">
         Every subject has a <strong style="color:var(--green);">Free</strong> version you can download right now.
-        Click <strong style="color:var(--amber);">Paid</strong> to get the detailed premium version via Telegram.
+        For the detailed <strong style="color:var(--amber);">Premium</strong> version, order via
+        <strong style="color:#0088CC;">Telegram</strong> or grab it directly from our
+        <strong style="color:var(--purple-l);">Superprofile</strong> store.
       </p>
     </div>
 
@@ -731,6 +761,7 @@ footer {
       <button class="fpill" data-f="web"><i class="fa-solid fa-globe"></i> Web Dev</button>
       <button class="fpill" data-f="core"><i class="fa-solid fa-microchip"></i> CS Core</button>
       <button class="fpill" data-f="aiml"><i class="fa-solid fa-brain"></i> AI / ML</button>
+      <button class="fpill" data-f="tools"><i class="fa-solid fa-toolbox"></i> Tools &amp; More</button>
     </div>
 
     <!-- Cards rendered by JS -->
@@ -765,10 +796,10 @@ footer {
     </div>
     <div class="feat reveal">
       <div class="feat-icon" style="background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.28);">
-        <i class="fa-solid fa-eye" style="color:var(--purple-l);"></i>
+        <i class="fa-solid fa-bag-shopping" style="color:var(--purple-l);"></i>
       </div>
-      <h4>Instant Preview</h4>
-      <p>Read before you download — no surprises</p>
+      <h4>Superprofile Store</h4>
+      <p>Buy premium notes instantly through our Superprofile store</p>
     </div>
     <div class="feat reveal">
       <div class="feat-icon" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.25);">
@@ -783,7 +814,7 @@ footer {
 <!-- ════════════════ STATS ════════════════ -->
 <div class="stats reveal">
   <div class="stat-box">
-    <div class="stat-n">15+</div>
+    <div class="stat-n">25+</div>
     <div class="stat-l"><i class="fa-solid fa-book"></i> Subjects Covered</div>
   </div>
   <div class="stat-box">
@@ -856,6 +887,9 @@ footer {
       <a class="scard sc-tg" id="commTgBtn" target="_blank" rel="noopener">
         <i class="fa-brands fa-telegram"></i> Telegram
       </a>
+      <a class="scard sc-gr" id="commGumroadBtn" target="_blank" rel="noopener">
+        <i class="fa-solid fa-bag-shopping"></i> Gumroad
+      </a>
       <a class="scard sc-yt" href="https://youtube.com/@codewithai.v?si=B1243IrjVL4h6tVd" target="_blank" rel="noopener">
         <i class="fa-brands fa-youtube"></i> YouTube
       </a>
@@ -903,7 +937,10 @@ footer {
         <i class="fa-solid fa-download"></i> Download Free
       </a>
       <a class="btn btn-sm btn-tg" id="modalTgBtn" href="#" target="_blank" rel="noopener">
-        <i class="fa-brands fa-telegram"></i> Get Premium on Telegram
+        <i class="fa-brands fa-telegram"></i> Premium via Telegram
+      </a>
+      <a class="btn btn-sm btn-super" id="modalSuperBtn" href="#" target="_blank" rel="noopener">
+        <i class="fa-solid fa-bag-shopping"></i> Premium via Superprofile
       </a>
     </div>
   </div>
@@ -923,32 +960,80 @@ const TG = "cse_aspriant";
 const tgLink = (sub) =>
   `https://t.me/${TG}?text=${encodeURIComponent(`Hi! I want the PREMIUM notes for ${sub} from Code With AI.`)}`;
 
-/* ── Subjects data ── */
+/* Gumroad store link — shown as a top button on the whole site */
+const GUMROAD_LINK = "https://bikki4.gumroad.com/l/dsafull?_gl=1*1p35pes*_ga*MTAyNTgyODU4OS4xNzg5MzEzNTUy*_ga_6LJN6D94N6*czE3ODk3Mzk5MjckbzI3JGcwJHQxNzg5NzM5OTI3JGo2MCRsMCRoMA";
+
+/* ── Subjects data ──
+   NOTE FOR BIKKI:
+   - "id"           = Google Drive file id used for Preview + Free download. Leave "" until uploaded.
+   - "superprofile"  = Superprofile.bio product link for that subject's premium notes. Leave "" until ready,
+                        the button will show as a disabled "Coming Soon" state automatically.
+   - Telegram button always works (no id/link needed) since it just opens a chat message.
+*/
 const SUBJECTS = [
   // ── Programming ──
-  { name:"Python",               desc:"Basics to advanced — variables, loops, OOP, modules",            icon:"fa-brands fa-python",       color:"#3776AB", bg:"#3776AB22", cat:"programming", id:"1tT5s8iIFDl-cRSHMCASupzTkb_4govHP" },
-  { name:"Python Libraries",     desc:"NumPy, Pandas, Matplotlib, Seaborn & more",                      icon:"fa-brands fa-python",       color:"#FFD43B", bg:"#FFD43B22", cat:"programming", id:"1CICT_Z7wrQ4Tv8GdFiQoDzKyemCWkre5" },
-  { name:"C Language",           desc:"Core C — pointers, memory, arrays, functions",                   icon:"fa-solid fa-c",             color:"#A8B9CC", bg:"#A8B9CC22", cat:"programming", id:"1iHgjZEvk0_yKjSFXABiHkKetYHqeB_2g" },
-  { name:"C++",                  desc:"OOP, STL, algorithms — placement ready",                         icon:"fa-solid fa-code",          color:"#00599C", bg:"#00599C22", cat:"programming", id:"1L8Zl1FHCjSvnsH3vPQAHvK19qtmgZTlA" },
-  { name:"DSA",                  desc:"Data structures & algorithms — arrays, trees, graphs, DP",       icon:"fa-solid fa-diagram-project",color:"#a855f7", bg:"#a855f722", cat:"programming", id:"1Mu5WO4J0PcRHVlV62H1iiU1SJyPl7PMH" },
+  { name:"Python",               desc:"Basics to advanced — variables, loops, OOP, modules",            icon:"fa-brands fa-python",        color:"#3776AB", bg:"#3776AB22", cat:"programming", id:"1tT5s8iIFDl-cRSHMCASupzTkb_4govHP", superprofile:"" },
+  { name:"Python Libraries",     desc:"NumPy, Pandas, Matplotlib, Seaborn & more",                      icon:"fa-brands fa-python",        color:"#FFD43B", bg:"#FFD43B22", cat:"programming", id:"1CICT_Z7wrQ4Tv8GdFiQoDzKyemCWkre5", superprofile:"" },
+  { name:"C Language",           desc:"Core C — pointers, memory, arrays, functions",                   icon:"fa-solid fa-c",              color:"#A8B9CC", bg:"#A8B9CC22", cat:"programming", id:"1iHgjZEvk0_yKjSFXABiHkKetYHqeB_2g", superprofile:"" },
+  { name:"C++",                  desc:"OOP, STL, algorithms — placement ready",                         icon:"fa-solid fa-code",           color:"#00599C", bg:"#00599C22", cat:"programming", id:"1L8Zl1FHCjSvnsH3vPQAHvK19qtmgZTlA", superprofile:"https://superprofile.bio/vp/c---programming-handwritten-notes---complete-c---notes/" },
+  { name:"DSA",                  desc:"Data structures & algorithms — arrays, trees, graphs, DP",       icon:"fa-solid fa-diagram-project",color:"#a855f7", bg:"#a855f722", cat:"programming", id:"1Mu5WO4J0PcRHVlV62H1iiU1SJyPl7PMH", superprofile:"" },
+  { name:"DAA",                  desc:"Design & analysis of algorithms — complexity, greedy, DP, NP",   icon:"fa-solid fa-route",          color:"#22c55e", bg:"#22c55e22", cat:"programming", id:"", superprofile:"" },
   // ── Web Dev ──
-  { name:"HTML",                 desc:"Web structure — tags, forms, semantic elements",                  icon:"fa-brands fa-html5",        color:"#E34F26", bg:"#E34F2622", cat:"web",         id:"1KhMmrL-Lc3a8kXIlNFrsuw53rQcSTcy-" },
-  { name:"CSS",                  desc:"Styling, Flexbox, Grid, animations — made easy",                  icon:"fa-brands fa-css3-alt",     color:"#1572B6", bg:"#1572B622", cat:"web",         id:"17Tv7RhDf6RdG686g7Xavbt4R_vTXEwOj" },
-  { name:"JavaScript",           desc:"Modern JS — ES6+, DOM manipulation, async, APIs",                 icon:"fa-brands fa-js",           color:"#F7DF1E", bg:"#F7DF1E22", cat:"web",         id:"1RmvYCU4yt_QCHr3zHU5zcd6gfPdTnVhI" },
+  { name:"HTML",                 desc:"Web structure — tags, forms, semantic elements",                  icon:"fa-brands fa-html5",         color:"#E34F26", bg:"#E34F2622", cat:"web",         id:"1KhMmrL-Lc3a8kXIlNFrsuw53rQcSTcy-", superprofile:"" },
+  { name:"CSS",                  desc:"Styling, Flexbox, Grid, animations — made easy",                  icon:"fa-brands fa-css3-alt",      color:"#1572B6", bg:"#1572B622", cat:"web",         id:"17Tv7RhDf6RdG686g7Xavbt4R_vTXEwOj", superprofile:"" },
+  { name:"JavaScript",           desc:"Modern JS — ES6+, DOM manipulation, async, APIs",                 icon:"fa-brands fa-js",            color:"#F7DF1E", bg:"#F7DF1E22", cat:"web",         id:"1RmvYCU4yt_QCHr3zHU5zcd6gfPdTnVhI", superprofile:"" },
   // ── CS Core ──
-  { name:"DBMS",                 desc:"SQL, ER diagrams, normalization, transactions",                   icon:"fa-solid fa-database",      color:"#F29111", bg:"#F2911122", cat:"core",        id:"13j4O4yrEE9ixUIUtLnzpMjYAVqQNTlcD" },
-  { name:"Operating System",     desc:"Processes, scheduling, memory management, deadlocks",             icon:"fa-solid fa-server",        color:"#8892b0", bg:"#8892b022", cat:"core",        id:"15JHP5SdxaxKRnCixvWQ3CwvJCUrr_u0T" },
-  { name:"Digital Logic",        desc:"Logic gates, Boolean algebra, circuits & combinational design",   icon:"fa-solid fa-microchip",     color:"#06b6d4", bg:"#06b6d422", cat:"core",        id:"1H-ffGXZ1hde8WL2jkBJbC0zXiV7Kpt6Q" },
-  { name:"Software Engineering", desc:"SDLC, design patterns, testing & project management",             icon:"fa-solid fa-gears",         color:"#10b981", bg:"#10b98122", cat:"core",        id:"19_S6Oj3XYg8sGi3qg_whEkDb7ibPMUlH" },
+  { name:"DBMS",                 desc:"SQL, ER diagrams, normalization, transactions",                   icon:"fa-solid fa-database",       color:"#F29111", bg:"#F2911122", cat:"core",        id:"13j4O4yrEE9ixUIUtLnzpMjYAVqQNTlcD", superprofile:"" },
+  { name:"SQL",                  desc:"Queries, joins, subqueries — practical database SQL",             icon:"fa-solid fa-table",          color:"#4479A1", bg:"#4479A122", cat:"core",        id:"", superprofile:"" },
+  { name:"Operating System",     desc:"Processes, scheduling, memory management, deadlocks",             icon:"fa-solid fa-server",         color:"#8892b0", bg:"#8892b022", cat:"core",        id:"15JHP5SdxaxKRnCixvWQ3CwvJCUrr_u0T", superprofile:"" },
+  { name:"Computer Network",     desc:"OSI/TCP-IP model, routing, protocols, network security basics",   icon:"fa-solid fa-network-wired",  color:"#0ea5e9", bg:"#0ea5e922", cat:"core",        id:"", superprofile:"" },
+  { name:"COA",                  desc:"Computer organization & architecture — CPU, memory, pipelining",  icon:"fa-solid fa-memory",         color:"#64748b", bg:"#64748b22", cat:"core",        id:"", superprofile:"" },
+  { name:"Digital Logic",        desc:"Logic gates, Boolean algebra, circuits & combinational design",   icon:"fa-solid fa-microchip",      color:"#06b6d4", bg:"#06b6d422", cat:"core",        id:"1H-ffGXZ1hde8WL2jkBJbC0zXiV7Kpt6Q", superprofile:"" },
+  { name:"TOC",                  desc:"Theory of computation — automata, grammars, Turing machines",     icon:"fa-solid fa-shapes",         color:"#f97316", bg:"#f9731622", cat:"core",        id:"", superprofile:"" },
+  { name:"Compiler Design",      desc:"Lexical analysis, parsing, code generation & optimization",       icon:"fa-solid fa-terminal",       color:"#eab308", bg:"#eab30822", cat:"core",        id:"", superprofile:"" },
+  { name:"Discrete Mathematics", desc:"Set theory, relations, graph theory, logic & combinatorics",      icon:"fa-solid fa-square-root-variable", color:"#8b5cf6", bg:"#8b5cf622", cat:"core",  id:"", superprofile:"" },
+  { name:"Software Engineering", desc:"SDLC, design patterns, testing & project management",             icon:"fa-solid fa-gears",          color:"#10b981", bg:"#10b98122", cat:"core",        id:"19_S6Oj3XYg8sGi3qg_whEkDb7ibPMUlH", superprofile:"" },
   // ── AI / ML ──
-  { name:"Machine Learning",     desc:"Supervised, unsupervised — regression, classification, clustering",icon:"fa-solid fa-brain",        color:"#f59e0b", bg:"#f59e0b22", cat:"aiml",        id:"1tPUMG5EtJ1-dcLKg5MWVOzwxxEZQvsfK" },
-  { name:"Artificial Intelligence",desc:"Search, knowledge representation, AI planning & reasoning",    icon:"fa-solid fa-robot",         color:"#a855f7", bg:"#a855f722", cat:"aiml",        id:"1g9EJ5OAWBLl9nK5ani2m3oxniKXeTshN" },
-  { name:"Deep Learning",        desc:"Neural nets, CNNs, RNNs, transformers & backpropagation",        icon:"fa-solid fa-network-wired", color:"#06b6d4", bg:"#06b6d422", cat:"aiml",        id:"1Omvt5xuWAuY5rAgvU9ArRt4CQFxExnRP" },
+  { name:"Machine Learning",     desc:"Supervised, unsupervised — regression, classification, clustering",icon:"fa-solid fa-brain",         color:"#f59e0b", bg:"#f59e0b22", cat:"aiml",        id:"1tPUMG5EtJ1-dcLKg5MWVOzwxxEZQvsfK", superprofile:"" },
+  { name:"Artificial Intelligence",desc:"Search, knowledge representation, AI planning & reasoning",    icon:"fa-solid fa-robot",          color:"#a855f7", bg:"#a855f722", cat:"aiml",        id:"1g9EJ5OAWBLl9nK5ani2m3oxniKXeTshN", superprofile:"" },
+  { name:"Deep Learning",        desc:"Neural nets, CNNs, RNNs, transformers & backpropagation",        icon:"fa-solid fa-network-wired",  color:"#06b6d4", bg:"#06b6d422", cat:"aiml",        id:"1Omvt5xuWAuY5rAgvU9ArRt4CQFxExnRP", superprofile:"" },
+  // ── Tools & More ──
+  { name:"Excel",                desc:"Formulas, pivot tables, charts & data analysis basics",           icon:"fa-solid fa-file-excel",     color:"#217346", bg:"#21734622", cat:"tools",       id:"", superprofile:"" },
+  { name:"Cyber Security",       desc:"Network security, ethical hacking basics, threats & defense",     icon:"fa-solid fa-shield-halved",  color:"#ef4444", bg:"#ef444422", cat:"tools",       id:"", superprofile:"" },
+  { name:"Linux",                desc:"Shell commands, file system, permissions & basic scripting",      icon:"fa-brands fa-linux",         color:"#f59e0b", bg:"#f59e0b22", cat:"tools",       id:"", superprofile:"" },
+  { name:"Jira",                 desc:"Agile boards, sprints, issue tracking for project management",    icon:"fa-brands fa-jira",          color:"#0052CC", bg:"#0052CC22", cat:"tools",       id:"", superprofile:"" },
 ];
+
+/* ── Helper: build an action button (or a disabled placeholder) ── */
+function actionLink({ href, cls, icon, label, disabled }) {
+  if (disabled) {
+    return `<span class="btn btn-sm ${cls} btn-disabled" title="Coming soon"><i class="${icon}"></i> ${label}</span>`;
+  }
+  return `<a class="btn btn-sm ${cls}" href="${href}" target="_blank" rel="noopener"><i class="${icon}"></i> ${label}</a>`;
+}
 
 /* ── Render note cards ── */
 const grid = document.getElementById("notesGrid");
 SUBJECTS.forEach((s) => {
+  const hasId    = !!s.id;
+  const hasSuper = !!s.superprofile;
+
+  const freeBtnHtml = hasId
+    ? `<a class="btn btn-green btn-sm" href="https://drive.google.com/uc?export=download&id=${s.id}" target="_blank" rel="noopener"><i class="fa-solid fa-download"></i> Free</a>`
+    : `<span class="btn btn-green btn-sm btn-disabled" title="Coming soon"><i class="fa-solid fa-download"></i> Free</span>`;
+
+  const previewBtnHtml = hasId
+    ? `<button class="btn btn-ghost btn-sm js-preview" data-id="${s.id}" data-name="${s.name}"><i class="fa-solid fa-eye"></i> Preview</button>`
+    : `<span class="btn btn-ghost btn-sm btn-disabled" title="Coming soon"><i class="fa-solid fa-eye"></i> Preview</span>`;
+
+  const tgBtnHtml = actionLink({
+    href: tgLink(s.name), cls: "btn-tg", icon: "fa-brands fa-telegram", label: "Telegram"
+  });
+
+  const superBtnHtml = actionLink({
+    href: s.superprofile, cls: "btn-super", icon: "fa-solid fa-bag-shopping", label: "Superprofile", disabled: !hasSuper
+  });
+
   const card = document.createElement("div");
   card.className = "ncard reveal";
   card.dataset.cat = s.cat;
@@ -964,29 +1049,20 @@ SUBJECTS.forEach((s) => {
     </div>
     <div class="badge-row">
       <span class="badge b-free"><i class="fa-solid fa-circle-check"></i> Free Available</span>
-      <span class="badge b-premium"><i class="fa-solid fa-crown"></i> Premium on Telegram</span>
+      <span class="badge b-premium"><i class="fa-solid fa-crown"></i> Premium</span>
     </div>
     <div class="ncard-actions">
-      <button class="btn btn-ghost btn-sm js-preview"
-        data-id="${s.id}" data-name="${s.name}">
-        <i class="fa-solid fa-eye"></i> Preview
-      </button>
-      <a class="btn btn-green btn-sm"
-        href="https://drive.google.com/uc?export=download&id=${s.id}"
-        target="_blank" rel="noopener">
-        <i class="fa-solid fa-download"></i> Free
-      </a>
-      <a class="btn btn-tg btn-sm"
-        href="${tgLink(s.name)}"
-        target="_blank" rel="noopener">
-        <i class="fa-brands fa-telegram"></i> Paid
-      </a>
+      ${previewBtnHtml}
+      ${freeBtnHtml}
+    </div>
+    <div class="ncard-label">Get Premium</div>
+    <div class="ncard-actions">
+      ${tgBtnHtml}
+      ${superBtnHtml}
     </div>`;
   grid.appendChild(card);
   ro.observe(card); // observe dynamically added card
 });
-
-
 
 /* ── Ticker ── */
 const items = SUBJECTS.map(
@@ -995,12 +1071,15 @@ const items = SUBJECTS.map(
 const tk = document.getElementById("ticker");
 tk.innerHTML = items + items;
 
-/* ── Telegram links ── */
+/* ── Telegram / Gumroad links ── */
 const TG_GENERAL = tgLink("General Query");
-document.getElementById("navTgBtn").href   = TG_GENERAL;
-document.getElementById("mobTgBtn").href   = TG_GENERAL;
-document.getElementById("commTgBtn").href  = TG_GENERAL;
-document.getElementById("footTgLink").href = TG_GENERAL;
+document.getElementById("navTgBtn").href       = TG_GENERAL;
+document.getElementById("mobTgBtn").href       = TG_GENERAL;
+document.getElementById("commTgBtn").href      = TG_GENERAL;
+document.getElementById("footTgLink").href     = TG_GENERAL;
+document.getElementById("navGumroadBtn").href  = GUMROAD_LINK;
+document.getElementById("mobGumroadBtn").href  = GUMROAD_LINK;
+document.getElementById("commGumroadBtn").href = GUMROAD_LINK;
 
 /* ── Filter ── */
 document.getElementById("filterBar").addEventListener("click", (e) => {
@@ -1020,15 +1099,25 @@ const modalFrame = document.getElementById("modalFrame");
 const modalTitle = document.getElementById("modalTitle");
 const modalFree  = document.getElementById("modalFreeBtn");
 const modalTg    = document.getElementById("modalTgBtn");
+const modalSuper = document.getElementById("modalSuperBtn");
 
 grid.addEventListener("click", (e) => {
   const btn = e.target.closest(".js-preview");
   if (!btn) return;
   const { id, name } = btn.dataset;
+  const subj = SUBJECTS.find((s) => s.name === name) || {};
   modalTitle.textContent = `${name} — Preview`;
   modalFrame.src  = `https://drive.google.com/file/d/${id}/preview`;
   modalFree.href  = `https://drive.google.com/uc?export=download&id=${id}`;
   modalTg.href    = tgLink(name);
+  if (subj.superprofile) {
+    modalSuper.href = subj.superprofile;
+    modalSuper.classList.remove("btn-disabled");
+    modalSuper.style.pointerEvents = "";
+  } else {
+    modalSuper.href = "#";
+    modalSuper.classList.add("btn-disabled");
+  }
   modalBg.classList.add("on");
   document.body.style.overflow = "hidden";
 });
@@ -1066,8 +1155,6 @@ function closeMob() {
 document.addEventListener("click", (e) => {
   if (!hamBtn.contains(e.target) && !mobileNav.contains(e.target)) closeMob();
 });
-
-
 </script>
 </body>
 </html>
