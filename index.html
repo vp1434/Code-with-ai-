@@ -899,9 +899,9 @@ footer {
       <a class="scard sc-fb" href="https://www.facebook.com/share/18r7cqAY7e/" target="_blank" rel="noopener">
         <i class="fa-brands fa-facebook"></i> Facebook
       </a>
-      <!-- <a class="scard sc-wa" href="https://wa.me/917260818774" target="_blank" rel="noopener">
+      <a class="scard sc-wa" href="https://whatsapp.com/channel/0029VaAZmZaJ3jv3iYDXzt3B" target="_blank" rel="noopener">
         <i class="fa-brands fa-whatsapp"></i> WhatsApp
-      </a> -->
+      </a>
     </div>
   </div>
 </section>
@@ -962,6 +962,9 @@ const tgLink = (sub) =>
 
 /* Gumroad store link — shown as a top button on the whole site */
 const GUMROAD_LINK = "https://bikki4.gumroad.com/l/dsafull?_gl=1*1p35pes*_ga*MTAyNTgyODU4OS4xNzg5MzEzNTUy*_ga_6LJN6D94N6*czE3ODk3Mzk5MjckbzI3JGcwJHQxNzg5NzM5OTI3JGo2MCRsMCRoMA";
+
+/* Telegram GROUP join link — used only for the "Join the Community" section card */
+const TG_GROUP_LINK = "https://t.me/vickymoviessouth";
 
 /* ── Subjects data ──
    NOTE FOR BIKKI:
@@ -1075,7 +1078,7 @@ tk.innerHTML = items + items;
 const TG_GENERAL = tgLink("General Query");
 document.getElementById("navTgBtn").href       = TG_GENERAL;
 document.getElementById("mobTgBtn").href       = TG_GENERAL;
-document.getElementById("commTgBtn").href      = TG_GENERAL;
+document.getElementById("commTgBtn").href      = TG_GROUP_LINK;
 document.getElementById("footTgLink").href     = TG_GENERAL;
 document.getElementById("navGumroadBtn").href  = GUMROAD_LINK;
 document.getElementById("mobGumroadBtn").href  = GUMROAD_LINK;
